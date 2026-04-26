@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☕ Cyber Cafetería - Acceso</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+  <div class="login-background">
+    <span class="shape shape-1"></span>
+    <span class="shape shape-2"></span>
+    <span class="shape shape-3"></span>
+  </div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-card-glow"></div>
+
+      <!-- Encabezado -->
+      <div class="login-header">
+        <span class="login-logo">☕</span>
+        <h1>Cyber Cafetería</h1>
+        <p>Accede al panel administrativo de tu cyber café.</p>
+      </div>
+
+      <!-- Mensaje de error (oculto por defecto) -->
+      <div id="loginError" class="error-msg" style="display:none"></div>
+
+      <!-- Campo de email -->
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="admin@cafeteria.com" required>
+      </div>
+
+      <!-- Campo de contraseña -->
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+
+      <!-- Botón de login -->
+      <button class="btn btn-primary btn-full" id="loginBtn" onclick="iniciarSesion()">
+        ☕ Entrar al Centro
+      </button>
+
+      <p class="login-note">Usuario: <strong>admin@cafeteria.com</strong> | Contraseña: <strong>admin123</strong></p>
+      <p class="login-footer">Cyber Cafetería Manager © 2024</p>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

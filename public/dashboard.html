@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☕ Cafetería - Panel de Gestión</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Overlay oscuro para cerrar el sidebar en móvil -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="cerrarSidebar()"></div>
+
+  <div class="dashboard-layout">
+
+    <!-- ====================================================
+         SIDEBAR - Menú lateral de navegación
+         ==================================================== -->
+    <aside class="sidebar" id="sidebar">
+
+      <!-- Logo / nombre del sistema -->
+      <div class="sidebar-brand">
+        <span class="brand-icon">☕</span>
+        <div>
+          <div class="brand-name">Cyber Cafetería</div>
+          <div class="brand-sub">Centro de Control</div>
+        </div>
+      </div>
+
+      <!-- Opciones de navegación -->
+      <nav class="sidebar-nav">
+        <div class="nav-item active" id="nav-panel" onclick="mostrarSeccion('panel')">
+          <span class="nav-icon">🖥️</span>
+          <span>Panel Principal</span>
+        </div>
+        <div class="nav-item" id="nav-productos" onclick="mostrarSeccion('productos')">
+          <span class="nav-icon">🍔</span>
+          <span>Inventario</span>
+        </div>
+      </nav>
+
+      <!-- Información del usuario + botón de logout -->
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">👤</div>
+          <div>
+            <div class="user-name" id="userName">Cargando...</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-full" onclick="cerrarSesion()">
+          🚪 Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====================================================
+         CONTENIDO PRINCIPAL
+         ==================================================== -->
+    <main class="main-content">
+
+      <!-- Header superior -->
+      <header class="main-header">
+        <div class="header-left">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <div>
+            <h2 id="pageTitle">Panel Principal</h2>
+            <p class="header-subtitle">Monitorea el inventario y controla tu cyber café con estilo.</p>
+          </div>
+        </div>
+        <span class="header-date" id="headerDate"></span>
+      </header>
+
+      <!-- Área de secciones -->
+      <div class="page-content">
+
+        <!-- ================================================
+             SECCIÓN: PANEL PRINCIPAL (estadísticas)
+             ================================================ -->
+        <section class="section active" id="section-panel">
+
+          <!-- Banner de bienvenida -->
+          <div class="welcome-banner">
+            <div class="welcome-text">
+              <span class="welcome-pill">Sala de Control</span>
+              <h2>¡Bienvenido, <span id="welcomeName">Admin</span>! 🖥️</h2>
+              <p>Controla stock, pedidos rápidos y la sala del cyber café desde aquí.</p>
+            </div>
+            <div class="welcome-icon">💻</div>
+          </div>
+
+          <div class="hero-chips">
+            <div class="chip-card">
+              <span class="chip-icon">🚀</span>
+              <div>
+                <p class="chip-title">Disponibilidad</p>
+                <p class="chip-text">Productos listos para servir.</p>
+              </div>
+            </div>
+            <div class="chip-card">
+              <span class="chip-icon">🛡️</span>
+              <div>
+                <p class="chip-title">Protección</p>
+                <p class="chip-text">Conexión estable y control seguro.</p>
+              </div>
+            </div>
+            <div class="chip-card">
+              <span class="chip-icon">⚡</span>
+              <div>
+                <p class="chip-title">Rendimiento</p>
+                <p class="chip-text">Panel rápido y claro.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjetas de estadísticas -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">📦</div>
+              <div class="stat-info">
+                <div class="stat-value" id="statTotal">—</div>
+                <div class="stat-label">Total de Productos</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-info">
+                <div class="stat-value" id="statValor">—</div>
+                <div class="stat-label">Valor del Inventario</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⚠️</div>
+              <div class="stat-info">
+                <div class="stat-value" id="statBajo">—</div>
+                <div class="stat-label">Stock Bajo (≤ 10 uds.)</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏷️</div>
+              <div class="stat-info">
+                <div class="stat-value" id="statCategorias">—</div>
+                <div class="stat-label">Categorías Activas</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="insights-grid">
+            <div class="card card-insight">
+              <div class="card-header">
+                <h3>⚠️ Stock crítico</h3>
+              </div>
+              <div class="card-body">
+                <ul class="insight-list" id="criticalStockList">
+                  <li>No hay productos con stock crítico.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card card-insight">
+              <div class="card-header">
+                <h3>📊 Distribución por categoría</h3>
+              </div>
+              <div class="card-body" id="categoryBreakdown">
+                <p class="text-muted">Cargando información de categoría...</p>
+              </div>
+            </div>
+            <div class="card card-insight">
+              <div class="card-header">
+                <h3>🔥 Top productos</h3>
+              </div>
+              <div class="card-body">
+                <ul class="insight-list" id="topProductsList">
+                  <li>Seleccionando los productos más valiosos...</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================================================
+             SECCIÓN: GESTIÓN DE PRODUCTOS (CRUD)
+             ================================================ -->
+        <section class="section" id="section-productos">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>📦 Gestión de Productos</h3>
+                <p class="card-subtitle">Busca, filtra y administra el inventario rápidamente.</p>
+              </div>
+              <div class="card-actions">
+                <div class="panel-filters">
+                  <input type="text" id="searchInput" class="filter-input" placeholder="Buscar producto..." oninput="filtrarProductos()">
+                  <select id="categoriaFiltro" class="filter-select" onchange="filtrarProductos()">
+                    <option value="Todos">Todas las categorías</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Postres">Postres</option>
+                    <option value="Snacks">Snacks</option>
+                  </select>
+                </div>
+                <div class="action-buttons">
+                  <button class="btn btn-success" onclick="exportarCSV()">📄 Exportar CSV</button>
+                  <button class="btn btn-primary" onclick="abrirModalCrear()">➕ Nuevo</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaProductos">
+                  <tr>
+                    <td colspan="6" class="table-empty">Cargando productos...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ====================================================
+       MODAL - Crear / Editar producto
+       ==================================================== -->
+  <div class="modal-overlay" id="modalProducto">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitulo">Nuevo Producto</h3>
+        <button class="modal-close" onclick="cerrarModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- ID oculto (solo se usa cuando se edita) -->
+        <input type="hidden" id="productoId">
+
+        <div class="form-group">
+          <label>Nombre del producto</label>
+          <input type="text" id="productoNombre" placeholder="Ej: Café Americano">
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="productoCategoria">
+            <option value="Bebidas">☕ Bebidas</option>
+            <option value="Comida">🥪 Comida</option>
+            <option value="Postres">🍰 Postres</option>
+            <option value="Snacks">🍿 Snacks</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Precio ($)</label>
+          <input type="number" id="productoPrecio" placeholder="0.00" min="0" step="0.50">
+        </div>
+        <div class="form-group">
+          <label>Stock (unidades disponibles)</label>
+          <input type="number" id="productoStock" placeholder="0" min="0">
+        </div>
+
+        <!-- Error dentro del modal -->
+        <div id="modalError" class="error-msg" style="display:none"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="guardarProducto()">💾 Guardar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
