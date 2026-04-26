@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate();
 
   const clientId =
-    "518911621821-s5lkno59435mhm8ejb49nhh00jtpfu12.apps.googleusercontent.com";
+    "518911621821-uhco07p64moks0p76ps53l49mc8q4684.apps.googleusercontent.com";
   const onSuccess = (response) => {
     console.log("Login Success:", response);
     // Aquí normalmente decodificarías el JWT (token) para obtener los datos del usuario
